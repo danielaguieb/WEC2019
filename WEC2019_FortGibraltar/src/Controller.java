@@ -4,6 +4,7 @@ public class Controller
 	
 	private View theView;
 	private OpenWindow openWindow;
+	private Grid theGrid;
 	
 	public Controller() {}
 	
@@ -32,6 +33,7 @@ public class Controller
 	{
 		Controller controller = new Controller();
 		int size = controller.getSize();
+		//controller.theGrid = new Grid(size);
 		controller.makeView("Name of GUI", size); 
 	}
 	

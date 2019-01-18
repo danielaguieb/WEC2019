@@ -1,6 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
+
+import com.sun.rowset.internal.Row;
+
 import java.awt.event.*;
 
 public class View extends JFrame
@@ -14,9 +17,15 @@ public class View extends JFrame
 	private JMenuItem medium;
 	private JMenuItem large;
 	
+	public int row;
+	public int col;
+	
+	private Grid theGrid;
+	
 	public View(String s, int n)
 	{
 		super(s);
+		theGrid = new Grid(n);
 		setLayout(new BorderLayout());
 		makeCenterGrid(n);
 		//makeMenuBar();
@@ -32,53 +41,25 @@ public class View extends JFrame
 			for (int j = 0; j < n; j++) {
 				gridButtons[i][j] = new JButton();
 				gridButtons[i][j].setVisible(true);
-				//gridButtons[i][j].addActionListener(new ButtonListener());
+				row = i;
+				col = j;
+				gridButtons[i][j].addActionListener(new ButtonListener());
 				centerGrid.add(gridButtons[i][j]);
 			}
 		}
-		
 		
 		this.add(centerGrid, BorderLayout.CENTER);
 		System.out.println("Adding ceneter panel");
 	}
 	
-//	private void makeMenuBar()
-//	{
-//		menuBar = new JMenuBar();
-//		this.setJMenuBar(menuBar);
-//		size = new JMenu("Size");
-//		menuBar.add(size);
-//		
-//		small = new JMenuItem("Small");
-//		small.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				makeCenterGrid(10);
-//				setVisible(true);
-//				System.out.println("yeet");
-//			}
-//		});
-//		size.add(small);
-//		
-//		medium = new JMenuItem("Medium");
-//		medium.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				makeCenterGrid(20);
-//				setVisible(true);
-//				System.out.println("yeet");
-//			}
-//		});
-//		size.add(medium);
-//		
-//		large = new JMenuItem("Large");
-//		large.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				makeCenterGrid(30);
-//				setVisible(true);
-//				System.out.println("yeet");
-//			}
-//		});
-//		size.add(large);
-//	}
+	
+	public class ButtonListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			theGrid.makeMove(row, col);
+		}
+	}
 	
 	
 	private void makeWindowListener()
