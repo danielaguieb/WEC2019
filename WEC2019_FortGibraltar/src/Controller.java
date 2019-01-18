@@ -1,5 +1,4 @@
 
-
 public class Controller
 {
 	
@@ -17,20 +16,22 @@ public class Controller
 		theView.setVisible(true);
 	}
 	
-	
 	private int getSize()
 	{	
 		openWindow = new OpenWindow();
-		//return openWindow.determineSize();
-		return -1;
+		int size = -1;
+		while (size == -1) {
+			size = openWindow.size;
+			System.out.println("waiting");
+		}
+		openWindow.close();
+		return size;
 	}
 	
 	public static void main(String[] args)
 	{
 		Controller controller = new Controller();
-		// lets get the size
 		int size = controller.getSize();
-		//int size = controller.getSize();
 		controller.makeView("Name of GUI", size); 
 	}
 	

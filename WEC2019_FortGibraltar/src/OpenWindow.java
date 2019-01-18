@@ -1,10 +1,12 @@
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;import javafx.scene.layout.Border;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class OpenWindow extends JFrame
 {
@@ -12,6 +14,7 @@ public class OpenWindow extends JFrame
 	private JButton small;
 	private JButton medium;
 	private JButton large;
+	public int size = -1;
 	
 	public OpenWindow() {
 		super("Simulation Start-Up Menu");
@@ -27,49 +30,49 @@ public class OpenWindow extends JFrame
 		this.add(buttonArray, BorderLayout.CENTER);
 		
 		JPanel top = new JPanel(new BorderLayout());
-		JLabel label = new JLabel("Please Select a Size");
+		JLabel label = new JLabel("Please Select a Size", SwingConstants.CENTER);
 		top.add(label, BorderLayout.CENTER);
 		
 		this.add(top, BorderLayout.NORTH);
+		
+		addButtonListeners();
 		
 		this.setSize(300, 75);
 		this.setVisible(true);
 		this.setResizable(false);
 	}
 	
-	public int determineSize()
+	private void addButtonListeners()
 	{
-		Object[] options={ "large",  "medium", "small"};
-		JPanel panel=new JPanel();
+		small.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				size = 10;
+				System.out.println("a");
+			}
+		});
 		
-		JLabel label=new JLabel("Please Select a Size");
-		panel.add(label);
+		medium.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				size = 20;
+				System.out.println("b");
+			}
+		});
 		
-		int result = JOptionPane.showOptionDialog(null, panel, "Game Start Menu",
-		        JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-		        null, options, null);	
+		large.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				size = 30;
+				System.out.println("c");
+			}
+		});
 		
-		//this is large
-		if (result==JOptionPane.YES_OPTION){
-			return 30;		
-		}
-		
-		if (result==JOptionPane.NO_OPTION){
-			JOptionPane.getRootFrame().dispose();
-			System.out.println("in second if");
-		}
-		
-		if (result == JOptionPane.CANCEL_OPTION)
-		{
-			System.out.println("in cancel object");
-		}
-		
-		if (result == JOptionPane.OK_OPTION)
-		{
-			System.out.println("in object pain");
-		}
-		
-		return 10;
+	}
+	
+	public void close()
+	{
+		this.dispose();
 	}
 		
 }	
