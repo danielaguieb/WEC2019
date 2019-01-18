@@ -64,8 +64,8 @@ public class Grid {
 			return -1;
 		
 		int basinCounter = 0;
-		for(int N=row-1; N<3; N++) {
-			for(int M=col-1; M<3; M++) {
+		for(int N=row-1; N<row+2; N++) {
+			for(int M=col-1; M<col+2; M++) {
 				if(N>=0 && N < sideLength && M>=0 && M < sideLength) {
 					if(theGrid[N][M].hasBasin())
 						basinCounter++;
@@ -83,11 +83,11 @@ public class Grid {
 	 * large: theSize = 30
 	 */
 	public static void main(String[] args) {
-		int theSize = 3;
+		int theSize = 5;
 		Grid theGame = new Grid(theSize);
 		for(int i=0; i<theSize; i++) {
 			for(int j=0; j<theSize; j++) {
-				System.out.println(theGame.check(i,j));
+				System.out.println(i + "," + j + "," + theGame.check(i,j));
 			}
 		}
 	}

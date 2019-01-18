@@ -21,7 +21,8 @@ public class Controller
 	private int getSize()
 	{	
 		openWindow = new OpenWindow();
-		return openWindow.determineSize();
+		//return openWindow.determineSize();
+		return -1;
 	}
 	
 	public static void main(String[] args)

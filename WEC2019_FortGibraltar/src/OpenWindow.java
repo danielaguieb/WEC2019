@@ -26,7 +26,15 @@ public class OpenWindow extends JFrame
 		buttonArray.add(large);
 		this.add(buttonArray, BorderLayout.CENTER);
 		
+		JPanel top = new JPanel(new BorderLayout());
+		JLabel label = new JLabel("Please Select a Size");
+		top.add(label, BorderLayout.CENTER);
 		
+		this.add(top, BorderLayout.NORTH);
+		
+		this.setSize(300, 75);
+		this.setVisible(true);
+		this.setResizable(false);
 	}
 	
 	public int determineSize()
