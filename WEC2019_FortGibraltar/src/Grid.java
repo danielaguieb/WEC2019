@@ -14,13 +14,13 @@ public class Grid {
 	
 	private void randomizeBasins() {
 		Random random = new Random();
-		int rand_row = random.nextInt(sideLength) + 1;
-		int rand_col = random.nextInt(sideLength) + 1;
+		int rand_row = random.nextInt(sideLength);
+		int rand_col = random.nextInt(sideLength);
 
 		for(int i=0; i<num_basins; i++) {
 			while(theGrid[rand_row][rand_col].hasBasin()) {
-				rand_row = random.nextInt(sideLength) + 1;
-				rand_col = random.nextInt(sideLength) + 1;
+				rand_row = random.nextInt(sideLength);
+				rand_col = random.nextInt(sideLength);
 			}
 			
 			theGrid[rand_row][rand_col].setBasin(true);
