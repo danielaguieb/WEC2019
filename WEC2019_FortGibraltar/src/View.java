@@ -1,8 +1,11 @@
+import java.awt.*;
+import javax.swing.*;
 
-public class View
+public class View extends JFrame
 {
-	public View()
+	public View(String s)
 	{
-		super(s)
+		super(s);
+		setLayout(new GridBagLayout());
 	}
 }
