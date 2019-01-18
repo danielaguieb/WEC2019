@@ -47,10 +47,6 @@ public class Grid {
 		else return false;
 	}
 	
-	public void makeMove(int row, int col) {
-		check(row, col);
-		
-	}
 	
 	public int check(int row, int col) {
 		theGrid[row][col].setClicked(true);

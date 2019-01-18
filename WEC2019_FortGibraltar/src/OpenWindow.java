@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 public class OpenWindow extends JFrame
 {
 	
+	private JButton xsmall;
 	private JButton small;
 	private JButton medium;
 	private JButton large;
@@ -21,9 +22,11 @@ public class OpenWindow extends JFrame
 		setLayout(new BorderLayout());
 		JPanel buttonArray = new JPanel();
 		
+		xsmall = new JButton("3by3");
 		small = new JButton("small");
 		medium = new JButton("medium");
 		large = new JButton("large");
+		buttonArray.add(xsmall);
 		buttonArray.add(small);
 		buttonArray.add(medium);
 		buttonArray.add(large);
@@ -37,18 +40,24 @@ public class OpenWindow extends JFrame
 		
 		addButtonListeners();
 		
-		this.setSize(300, 75);
+		this.setSize(380, 80);
 		this.setVisible(true);
 		this.setResizable(false);
 	}
 	
 	private void addButtonListeners()
 	{
+		xsmall.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				size = 3;
+			}
+		});
+		
 		small.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				size = 10;
-				System.out.println("a");
 			}
 		});
 		
@@ -56,7 +65,6 @@ public class OpenWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				size = 20;
-				System.out.println("b");
 			}
 		});
 		
@@ -64,7 +72,6 @@ public class OpenWindow extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				size = 30;
-				System.out.println("c");
 			}
 		});
 		
