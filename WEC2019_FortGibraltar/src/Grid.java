@@ -51,7 +51,7 @@ public class Grid {
 		check(row, col);
 		if(total_clicked_count == sideLength*sideLength - num_basins) {
 			if(checkWin())
-				// more a model thing
+				System.out.println("TEMP BIG WIN");
 		}
 	}
 	
