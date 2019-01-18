@@ -39,8 +39,6 @@ public class View extends JFrame
 				gridButtons[i][j].row = i;
 				gridButtons[i][j].col = j;
 				gridButtons[i][j].setVisible(true);
-				row = i;
-				col = j;
 				buttonListener(gridButtons[i][j]);
 				centerGrid.add(gridButtons[i][j]);
 			}
@@ -76,7 +74,7 @@ public class View extends JFrame
 	
 	private void victory()
 	{
-		Object[] option={ "OK"};
+		Object[] option={ "Reset"};
 		JPanel panel=new JPanel();
 		JLabel label = new JLabel("You have won the simulation!", SwingConstants.CENTER);
 		panel.add(label, BorderLayout.CENTER);
@@ -92,7 +90,7 @@ public class View extends JFrame
 	
 	private void terminate()
 	{
-		Object[] option={ "OK"};
+		Object[] option={ "Reset"};
 		JPanel panel=new JPanel();
 		JLabel label = new JLabel("You have lost the simulation", SwingConstants.CENTER);
 		panel.add(label, BorderLayout.CENTER);
@@ -108,10 +106,16 @@ public class View extends JFrame
 	
 	public void reset()
 	{
-		for (int i = 0; i < size; i++){
+		centerGrid.remove(gridButtons);
+		
+		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				gridButtons[i][j].enable();
-				gridButtons[i][j].setText("");
+				gridButtons[i][j] = new GridButton();
+				gridButtons[i][j].row = i;
+				gridButtons[i][j].col = j;
+				gridButtons[i][j].setVisible(true);
+				buttonListener(gridButtons[i][j]);
+				centerGrid.add(gridButtons[i][j]);
 			}
 		}
 		
