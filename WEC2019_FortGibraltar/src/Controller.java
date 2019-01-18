@@ -10,7 +10,7 @@ public class Controller
 	public void makeView(String s, int n)
 	{
 		theView = new View(s, n);
-		theView.setSize(600,600);
+		theView.setSize(500,500);
 		theView.setVisible(true);
 	}
 	
