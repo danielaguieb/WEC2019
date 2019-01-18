@@ -1,9 +1,11 @@
 import java.util.Random;
 
+
 public class Grid {
 	public Tile[][] theGrid;
 	public int sideLength;
 	public int num_basins;
+	private int total_clicked_count;
 	
 	public Grid (int n) {
 		theGrid = new Tile[n][n];
@@ -14,6 +16,7 @@ public class Grid {
 		}
 		sideLength = n;
 		num_basins = n;
+		total_clicked_count = 0;
 		randomizeBasins();
 	}
 	
@@ -32,8 +35,29 @@ public class Grid {
 		}
 	}
 	
+	private boolean checkWin() {
+		int num_tiles_left = 0;
+		for(int i=0; i<sideLength; i++) {
+			for(int j=0; j<sideLength; j++) {
+				if(theGrid[i][j].isClicked() == false)
+					num_tiles_left++;
+			}
+		}
+		if (num_tiles_left == num_basins) return true;
+		else return false;
+	}
+	
+	public void makeMove(int row, int col) {
+		check(row, col);
+		if(total_clicked_count == sideLength*sideLength - num_basins) {
+			if(checkWin())
+				// more a model thing
+		}
+	}
+	
 	public int check(int row, int col) {
 		theGrid[row][col].setClicked(true);
+		total_clicked_count++;
 
 		// if chosen tile has a basin, immediate failure
 		if(theGrid[row][col].hasBasin())
@@ -48,7 +72,7 @@ public class Grid {
 				}
 			}
 		}
-		return basinCounter;	
+		return basinCounter;
 	}
 	
 	/*
