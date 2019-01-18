@@ -1,27 +1,26 @@
 import java.util.Random;
-import java.lang.Math;
 
 public class Grid {
 	public Tile[][] theGrid;
-	public int size;
+	public int sideLength;
 	public int num_basins;
 	
 	public Grid (int n) {
 		theGrid = new Tile[n][n];
-		this.size = n;
-		num_basins = (int) Math.sqrt(n);
+		sideLength = n;
+		num_basins = n;
 		randomizeBasins();
 	}
 	
 	private void randomizeBasins() {
 		Random random = new Random();
-		int rand_row = random.nextInt(size) + 1;
-		int rand_col = random.nextInt(size) + 1;
+		int rand_row = random.nextInt(sideLength) + 1;
+		int rand_col = random.nextInt(sideLength) + 1;
 
 		for(int i=0; i<num_basins; i++) {
 			while(theGrid[rand_row][rand_col].hasBasin()) {
-				rand_row = random.nextInt(size) + 1;
-				rand_col = random.nextInt(size) + 1;
+				rand_row = random.nextInt(sideLength) + 1;
+				rand_col = random.nextInt(sideLength) + 1;
 			}
 			
 			theGrid[rand_row][rand_col].setBasin(true);
@@ -38,7 +37,7 @@ public class Grid {
 		int basinCounter = 0;
 		for(int N=row-1; N<3; N++) {
 			for(int M=col-1; M<3; M++) {
-				if(N>=0 && N < size && M>=0 && M < size) {
+				if(N>=0 && N < sideLength && M>=0 && M < sideLength) {
 					if(theGrid[N][M].hasBasin())
 						basinCounter++;
 				}
@@ -47,7 +46,22 @@ public class Grid {
 		return basinCounter;	
 	}
 	
-	
+	/*
+	 * Testing
+	 * min: theSize = 3
+	 * small: theSize = 10
+	 * medium: theSize = 20
+	 * large: theSize = 30
+	 */
+	public static void main(String[] args) {
+		int theSize = 3;
+		Grid theGame = new Grid(theSize);
+		for(int i=0; i<theSize; i++) {
+			for(int j=0; j<theSize; j++) {
+				System.out.println(theGame.check(i,j));
+			}
+		}
+	}
 	
 	
 }
