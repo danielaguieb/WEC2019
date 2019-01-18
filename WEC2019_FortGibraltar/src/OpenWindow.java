@@ -25,8 +25,6 @@ public class OpenWindow extends JFrame
 		buttonArray.add(medium);
 		buttonArray.add(large);
 		this.add(buttonArray, BorderLayout.CENTER);
-		
-		
 	}
 	
 	public int determineSize()
