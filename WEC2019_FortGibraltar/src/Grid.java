@@ -49,10 +49,7 @@ public class Grid {
 	
 	public void makeMove(int row, int col) {
 		check(row, col);
-		if(total_clicked_count == sideLength*sideLength - num_basins) {
-			if(checkWin())
-				System.out.println("TEMP BIG WIN");
-		}
+		
 	}
 	
 	public int check(int row, int col) {
@@ -72,6 +69,12 @@ public class Grid {
 				}
 			}
 		}
+		
+		if(total_clicked_count == sideLength*sideLength - num_basins) {
+			if(checkWin())
+				System.out.println("TEMP BIG WIN");
+		}
+		
 		return basinCounter;
 	}
 	

@@ -9,17 +9,17 @@ public class PlayerSim {
 	public PlayerSim(int sideLength){
 		this.sideLength = sideLength;
 		curr_threat_level = 0;
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<n; j++) {
-				PlayerTile[i][j] = new Tile(i,j); 
+		for(int i=0; i < sideLength; i++) {
+			for(int j=0; j< sideLength; j++) {
+				PlayerTile[i][j] = new PlayerTile(i,j); 
 			}
 		}
 	}
 
 	public void makeFirstMove(){
 		Random rand = new Random();
-		rand_row = rand.nextInt(sideLength);
-		rand_col = rand.nextInt(sideLength);
+		int rand_row = rand.nextInt(sideLength);
+		int rand_col = rand.nextInt(sideLength);
 		// to send coords
 		// recieve info
 
@@ -46,18 +46,18 @@ public class PlayerSim {
 	}
 
 	public void nextMoves(){
-		ArrayList<PlayerTile> lowestTiles;
+		ArrayList<PlayerTile> lowestTiles = new ArrayList<PlayerTile>();
 
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<n; j++) {
+		for(int i=0; i< sideLength; i++) {
+			for(int j=0; j< sideLength; j++) {
 				if(PlayerTile[i][j].threat_level < curr_threat_level){
 					curr_threat_level = PlayerTile[i][j].threat_level;
 				}
 			}
 		}
 
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<n; j++) {
+		for(int i=0; i< sideLength; i++) {
+			for(int j=0; j< sideLength; j++) {
 				if(PlayerTile[i][j].threat_level == curr_threat_level){
 					lowestTiles.add(PlayerTile[i][j]);
 				}
@@ -68,7 +68,7 @@ public class PlayerSim {
 		int nextTile = rand.nextInt(lowestTiles.size());
 		PlayerTile temp = lowestTiles.get(nextTile);
 		play(temp.row, temp.col);
-		lowestTiles.remove();
+		lowestTiles.remove(nextTile);
 
 	}
 

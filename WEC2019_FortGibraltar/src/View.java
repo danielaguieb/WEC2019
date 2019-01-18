@@ -1,49 +1,44 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
-import com.sun.rowset.internal.Row;
-
+import javafx.scene.layout.Border;
 import java.awt.event.*;
 
 public class View extends JFrame
 {
 	
-	private JButton[][] gridButtons;
+	private GridButton[][] gridButtons;
 	private JPanel centerGrid;
-	private JMenuBar menuBar;
-	private JMenu size;
-	private JMenuItem small;
-	private JMenuItem medium;
-	private JMenuItem large;
-	
+	private int size;
+	private Status status;
 	public int row;
 	public int col;
-	
 	private Grid theGrid;
 	
 	public View(String s, int n)
 	{
 		super(s);
+		status = Status.getInstance();
 		theGrid = new Grid(n);
 		setLayout(new BorderLayout());
 		makeCenterGrid(n);
-		//makeMenuBar();
 		makeWindowListener();
 	}
 	
 	private void makeCenterGrid(int n)
 	{
 		centerGrid = new JPanel(new GridLayout(n, n));
-		gridButtons = new JButton[n][n];
+		gridButtons = new GridButton[n][n];
 		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				gridButtons[i][j] = new JButton();
+				gridButtons[i][j] = new GridButton();
+				gridButtons[i][j].row = i;
+				gridButtons[i][j].col = j;
 				gridButtons[i][j].setVisible(true);
 				row = i;
 				col = j;
-				gridButtons[i][j].addActionListener(new ButtonListener());
+				buttonListener(gridButtons[i][j]);
 				centerGrid.add(gridButtons[i][j]);
 			}
 		}
@@ -52,16 +47,77 @@ public class View extends JFrame
 		System.out.println("Adding ceneter panel");
 	}
 	
-	
-	public class ButtonListener implements ActionListener
+	public void buttonListener(GridButton button)
 	{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			theGrid.makeMove(row, col);
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int num = theGrid.check(button.row, button.col);
+				String temp = "";
+				if (num == -1) {
+					status.setRunning(false);
+					terminate();
+				}
+				else 
+					temp = Integer.toString(num);
+				button.setText(temp);
+				button.setEnabled(false);
+				System.out.println("Row is " + button.row + " Col is " + button.col);
+			}
+		});
+	}
+	
+	private void terminate()
+	{
+		Object[] option={ "OK"};
+		JPanel panel=new JPanel();
+		JLabel label = new JLabel("You have hit a Basion: Simulation is Over", SwingConstants.CENTER);
+		panel.add(label, BorderLayout.CENTER);
+		int result = JOptionPane.showOptionDialog(null, panel, "You have hit a Basion: Simulation is Over",
+                JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, option, null);
+		if (result==JOptionPane.YES_OPTION){
+			JOptionPane.getRootFrame().dispose();
 		}
+		
+		reset();
+	}
+	
+	public void reset()
+	{
+		for (int i = 0; i < size; i++){
+			for (int j = 0; j < size; j++) {
+				gridButtons[i][j].enable();
+				gridButtons[i][j].setText("");
+			}
+		}
+		
+		theGrid = null;
+		theGrid = new Grid(n);
 	}
 	
 	
+//	public class ButtonListener implements ActionListener
+//	{
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			GridButton button = (GridButton) e.getSource();
+//			int num = theGrid.check(button.row, button.col);
+//			String temp = "";
+//			if (num == -1) {
+//				//temp = "B";
+//				status.setRunning(false);
+//				terminate();
+//			}
+//			else 
+//				temp = Integer.toString(num);
+//			button.setText(temp);
+//			button.setEnabled(false);
+//			System.out.println("Row is " + button.row + " Col is " + button.col);
+//		}
+//		
+//	}
+		
 	private void makeWindowListener()
 	{
 		addWindowListener(new WindowAdapter() {
