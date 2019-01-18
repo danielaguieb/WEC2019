@@ -7,6 +7,11 @@ public class Grid {
 	
 	public Grid (int n) {
 		theGrid = new Tile[n][n];
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				theGrid[i][j] = new Tile(); 
+			}
+		}
 		sideLength = n;
 		num_basins = n;
 		randomizeBasins();
